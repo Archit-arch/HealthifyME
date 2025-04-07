@@ -25,30 +25,41 @@ public class FindDoctorActivity extends AppCompatActivity {
         //CardView exit = findViewById(R.id.cardExit);
         CardView dentist = findViewById(R.id.dentist);
         CardView cardiologists = findViewById(R.id.cardiologists);
-        //CardView orderDetails = findViewById(R.id.cardOrderDetails);
-        //CardView buyMedicine = findViewById(R.id.cardBuyMedicine);
-        // CardView health = findViewById(R.id.findDoctor);
+        CardView surgeons = findViewById(R.id.surgeons);
+        CardView dieticians = findViewById(R.id.dietician);
+
 
         // Set OnClickListeners
-        //exit.setOnClickListener(this::onCardClick);
+
         dentist.setOnClickListener(this::onCardClick);
         cardiologists.setOnClickListener(this::onCardClick);
-        //orderDetails.setOnClickListener(this::onCardClick);
-        //buyMedicine.setOnClickListener(this::onCardClick);
-        //health.setOnClickListener(this::onCardClick);
+        surgeons.setOnClickListener(this::onCardClick);
+        dieticians.setOnClickListener(this::onCardClick);
     }
 
     // Method to handle card clicks
     public void onCardClick(View view) {
         int viewId = view.getId(); // Get the ID of the clicked view
+        Intent intent;
 
         if (viewId == R.id.dentist) {
-            // Navigate to FindDoctorActivity
-            startActivity(new Intent(FindDoctorActivity.this, DoctorDetailsActivity.class));
+            intent = new Intent(FindDoctorActivity.this, DoctorDetailsActivity.class);
+            intent.putExtra("title", "Dentist");
+            startActivity(intent);
         } else if (viewId == R.id.cardiologists) {
-            // Navigate to LabTestActivity
-            startActivity(new Intent(FindDoctorActivity.this, DoctorDetailsActivity.class));
+            intent = new Intent(FindDoctorActivity.this, DoctorDetailsActivity.class);
+            intent.putExtra("title", "Cardiologists");
+            startActivity(intent);
+        } else if (viewId == R.id.surgeons) {
+            intent = new Intent(FindDoctorActivity.this, DoctorDetailsActivity.class);
+            intent.putExtra("title", "Surgeon");
+            startActivity(intent);
+        } else if (viewId == R.id.dietician) {
+            intent = new Intent(FindDoctorActivity.this, DoctorDetailsActivity.class);
+            intent.putExtra("title", "Dietician");
+            startActivity(intent);
         }
         // Add more conditions for other cards if necessary
     }
+
 }
