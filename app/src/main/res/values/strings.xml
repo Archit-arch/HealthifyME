@@ -55,6 +55,13 @@
     <string name="buy_medicine1">Buy Medicines</string>
     <string name="add_to_cart">Add To Cart</string>
     <string name="select_deliver_date">Select Deliver Date</string>
+    <string-array name="repeat_options">
+        <item>No Repeat</item>
+        <item>Every Day</item>
+        <item>Every 8 Hours</item>
+        <item>Every Week</item>
+    </string-array>
+
 
 
 </resources>

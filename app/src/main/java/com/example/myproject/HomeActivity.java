@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,9 @@ public class HomeActivity extends AppCompatActivity {
         CardView health = findViewById(R.id.healthArticle);
         CardView orderDetails = findViewById(R.id.orderDetails);
 
+        Button addReminder = findViewById(R.id.addReminder);
+
+
         // Set OnClickListeners
         //exit.setOnClickListener(this::onCardClick);
         findDoctor.setOnClickListener(this::onCardClick);
@@ -39,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         buyMedicine.setOnClickListener(this::onCardClick);
         health.setOnClickListener(this::onCardClick);
         orderDetails.setOnClickListener(this::onCardClick);
+        addReminder.setOnClickListener(this::onCardClick);
     }
 
     // Method to handle card clicks
@@ -69,6 +74,11 @@ public class HomeActivity extends AppCompatActivity {
             Log.d("HomeActivity", "Launching Order Details");
 
             startActivity(new Intent(HomeActivity.this, OrderDetails.class));
+        }
+        else if(viewId == R.id.addReminder) {
+            Log.d("HomeActivity", "Launching Order Details");
+
+            startActivity(new Intent(HomeActivity.this, AddReminder.class));
         }
         // Add more conditions for other cards if necessary
     }

@@ -48,12 +48,13 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="112dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="HealthifyME"
-        android:textColor="#181111"
-        android:textSize="18sp"
+        android:text="Healthify-ME"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -244,6 +245,19 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <Button
+            android:id="@+id/addReminder"
+            android:layout_width="189dp"
+            android:layout_height="148dp"
+            android:backgroundTint="@color/colorWhite"
+            android:text="ADD MEDICINE REMINDER"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            app:cornerRadius="0dp"
+            app:layout_column="1"
+            app:layout_row="2" />
+
     </androidx.gridlayout.widget.GridLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

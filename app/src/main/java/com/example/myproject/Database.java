@@ -22,6 +22,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS users(username TEXT PRIMARY KEY, email TEXT, password TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS cart(username TEXT, product TEXT, price FLOAT, otype TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS orderplace(username TEXT, fullname TEXT, address TEXT, contactno TEXT, pincode INTEGER, date TEXT, time TEXT, amount FLOAT, otype TEXT)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS reminders(id integer PRIMARY KEY autoincrement, medicine text, time INTEGER, repeat_intervals INTEGER)");
     }
 
     @Override
@@ -29,6 +30,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS users");
         db.execSQL("DROP TABLE IF EXISTS cart");
         db.execSQL("DROP TABLE IF EXISTS orderplace");
+        db.execSQL("DROP TABLE IF EXISTS reminders");
         onCreate(db);
     }
 
@@ -158,5 +160,14 @@ public class Database extends SQLiteOpenHelper {
         }
         db.close();
         return arr;
+    }
+
+    public long insertReminder(String medicine, long timeMillis, long repeatIntervalMillis) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("medicine", medicine);
+        values.put("time", timeMillis);
+        values.put("repeat_intervals", repeatIntervalMillis);
+        return db.insert("reminders", null, values);
     }
 }
