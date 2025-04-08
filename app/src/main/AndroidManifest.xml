@@ -16,9 +16,14 @@
         android:theme="@style/Theme.MyProject"
         tools:targetApi="31">
         <activity
+            android:name=".LabTestBook"
+            android:exported="false" />
+        <activity
+            android:name=".OrderDetails"
+            android:exported="false" />
+        <activity
             android:name=".BookAppointmentActivity"
             android:exported="false" />
-
         <activity
             android:name=".BuyMedicineBookActivity"
             android:exported="false" />

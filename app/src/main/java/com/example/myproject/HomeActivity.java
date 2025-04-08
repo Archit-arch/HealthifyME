@@ -29,6 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         //CardView orderDetails = findViewById(R.id.cardOrderDetails);
         CardView buyMedicine = findViewById(R.id.buyMedicine);
         CardView health = findViewById(R.id.healthArticle);
+        CardView orderDetails = findViewById(R.id.orderDetails);
 
         // Set OnClickListeners
         //exit.setOnClickListener(this::onCardClick);
@@ -37,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         //orderDetails.setOnClickListener(this::onCardClick);
         buyMedicine.setOnClickListener(this::onCardClick);
         health.setOnClickListener(this::onCardClick);
+        orderDetails.setOnClickListener(this::onCardClick);
     }
 
     // Method to handle card clicks
@@ -62,6 +64,11 @@ public class HomeActivity extends AppCompatActivity {
             Log.d("HomeActivity", "Launching Health Articles");
 
             startActivity(new Intent(HomeActivity.this, HealthArticlesActivity.class));
+        }
+        else if(viewId == R.id.orderDetails) {
+            Log.d("HomeActivity", "Launching Order Details");
+
+            startActivity(new Intent(HomeActivity.this, OrderDetails.class));
         }
         // Add more conditions for other cards if necessary
     }
