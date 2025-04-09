@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,15 +13,16 @@ import androidx.cardview.widget.CardView;
 
 public class HomeActivity extends AppCompatActivity {
 
+    String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        SharedPreferences sharedpreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
-        String username = sharedpreferences.getString("username", "");
-        Toast.makeText(getApplicationContext(), "Welcome " + username, Toast.LENGTH_SHORT).show();
-
+        if(getIntent().getStringExtra("username") != null) {
+            username = getIntent().getStringExtra("username");
+            Toast.makeText(getApplicationContext(), "Welcome " + username, Toast.LENGTH_SHORT).show();
+        }
         // Initialize the card views
         //CardView exit = findViewById(R.id.cardExit);
         CardView findDoctor = findViewById(R.id.findDoctor);
@@ -31,9 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         CardView buyMedicine = findViewById(R.id.buyMedicine);
         CardView health = findViewById(R.id.healthArticle);
         CardView orderDetails = findViewById(R.id.orderDetails);
-
-        Button addReminder = findViewById(R.id.addReminder);
-
+        CardView medNotify = findViewById(R.id.medNotify);
 
         // Set OnClickListeners
         //exit.setOnClickListener(this::onCardClick);
@@ -43,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
         buyMedicine.setOnClickListener(this::onCardClick);
         health.setOnClickListener(this::onCardClick);
         orderDetails.setOnClickListener(this::onCardClick);
-        addReminder.setOnClickListener(this::onCardClick);
+        medNotify.setOnClickListener(this::onCardClick);
     }
 
     // Method to handle card clicks
@@ -75,10 +73,11 @@ public class HomeActivity extends AppCompatActivity {
 
             startActivity(new Intent(HomeActivity.this, OrderDetails.class));
         }
-        else if(viewId == R.id.addReminder) {
-            Log.d("HomeActivity", "Launching Order Details");
-
-            startActivity(new Intent(HomeActivity.this, AddReminder.class));
+        else if(viewId == R.id.medNotify) {
+            Log.d("HomeActivity", "Medicine Notification");
+            Intent intent = new Intent(HomeActivity.this, MedNotifyActivity.class);
+            intent.putExtra("username", username);
+            startActivity(intent);
         }
         // Add more conditions for other cards if necessary
     }

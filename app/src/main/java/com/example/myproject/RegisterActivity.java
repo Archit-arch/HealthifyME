@@ -62,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             // Redirect to Home Page
                             Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                            intent.putExtra("username", username);
                             startActivity(intent);
                             finish(); // Close RegisterActivity to avoid going back
                         } else {

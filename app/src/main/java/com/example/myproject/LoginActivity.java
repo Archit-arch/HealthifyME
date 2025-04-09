@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import kotlinx.coroutines.MainCoroutineDispatcher;
+
 public class LoginActivity extends AppCompatActivity {
     EditText usernameInput, passwordInput;
     Button loginButton, registerButton;
@@ -37,7 +39,9 @@ public class LoginActivity extends AppCompatActivity {
                     int result = db.login(username, password);
                     if (result == 1) {
                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class)); // Redirect to Home
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        intent.putExtra("username", username);
+                        startActivity(intent); // Redirect to Home
                         finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();

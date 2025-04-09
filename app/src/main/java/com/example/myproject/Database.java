@@ -14,7 +14,7 @@ public class Database extends SQLiteOpenHelper {
     private static final String TAG = "Database";
 
     public Database(Context context) {
-        super(context, "HealthcareDB", null, 1);
+        super(context, "HealthcareDB", null, 3);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS users(username TEXT PRIMARY KEY, email TEXT, password TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS cart(username TEXT, product TEXT, price FLOAT, otype TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS orderplace(username TEXT, fullname TEXT, address TEXT, contactno TEXT, pincode INTEGER, date TEXT, time TEXT, amount FLOAT, otype TEXT)");
-        db.execSQL("CREATE TABLE IF NOT EXISTS reminders(id integer PRIMARY KEY autoincrement, medicine text, time INTEGER, repeat_intervals INTEGER)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS medicine(username TEXT, name TEXT NOT NULL, description TEXT, date TEXT NOT NULL, time TEXT NOT NULL)");
     }
 
     @Override
@@ -30,7 +30,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS users");
         db.execSQL("DROP TABLE IF EXISTS cart");
         db.execSQL("DROP TABLE IF EXISTS orderplace");
-        db.execSQL("DROP TABLE IF EXISTS reminders");
+        db.execSQL("DROP TABLE IF EXISTS medicine");
         onCreate(db);
     }
 
@@ -162,12 +162,35 @@ public class Database extends SQLiteOpenHelper {
         return arr;
     }
 
-    public long insertReminder(String medicine, long timeMillis, long repeatIntervalMillis) {
-        SQLiteDatabase db = getWritableDatabase();
+    public boolean insertMedicine(String username, String name, String description, String date, String time) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("medicine", medicine);
-        values.put("time", timeMillis);
-        values.put("repeat_intervals", repeatIntervalMillis);
-        return db.insert("reminders", null, values);
+        values.put("username", username);
+        values.put("name", name);
+        values.put("description", description);
+        values.put("date", date);
+        values.put("time", time);
+
+        long result = db.insert("medicine", null, values);
+        return result != -1; // Returns true if insert was successful
+    }
+
+    public ArrayList<String[]> getAllMedicines(String username) {
+        ArrayList<String[]> medicines = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT name, description, date, time FROM medicine WHERE username=?", new String[]{username});
+
+        if (cursor.moveToFirst()) {
+            do {
+                String[] medicine = new String[4];
+                medicine[0] = cursor.getString(0); // Name
+                medicine[1] = cursor.getString(1); // Description
+                medicine[2] = cursor.getString(2); // Date
+                medicine[3] = cursor.getString(3); // Time
+                medicines.add(medicine);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return medicines;
     }
 }
